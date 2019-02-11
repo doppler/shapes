@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-window.location.search = "";
+if (window.location.search !== "") window.location.search = "";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
