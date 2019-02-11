@@ -18,3 +18,7 @@ body {
   height: 50vh;
   background-color: hsla(30, 100%, 50%, 0.5);
 }
+
+input {
+  width: 30%;
+}

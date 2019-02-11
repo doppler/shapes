@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import "./App.css";
 
-const MAXCOUNT = 90;
 const initialState = {
   count: 23,
   hPercent: 100,
@@ -17,8 +16,6 @@ const reducer = (state, action) => {
       return { ...state, hPercent };
     case "vPercent":
       return { ...state, vPercent };
-    case "newState":
-      return action.newState;
     default:
       throw new Error();
   }
@@ -92,7 +89,7 @@ const CountControl = ({ count, handleCountChange }) => {
       type="range"
       value={count}
       min={1}
-      max={MAXCOUNT}
+      max={360}
       step={1}
       onChange={handleCountChange}
     />
