@@ -96,6 +96,7 @@ const App = () => {
           />
         ))}
       </div>
+      <ViewSourceLink />
     </div>
   );
 };
@@ -158,4 +159,12 @@ const Vcontrol = ({ vPercent, handleVchange }) => (
     step={1}
     onChange={handleVchange}
   />
+);
+const ViewSourceLink = () => (
+  <a
+    href="https://github.com/doppler/shapes/blob/master/src/App.js"
+    target="_blank"
+  >
+    View Source
+  </a>
 );
