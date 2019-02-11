@@ -1,13 +1,19 @@
 import React, { useReducer, useEffect } from "react";
 import "./App.css";
 
+// Initial state of the variables that control the number of radials,
+// the horizontal "squeeze" and the vertical cutoff.
 const initialState = {
   count: 23,
   hPercent: 100,
   vPercent: 1
 };
 
+// The reducer changes the state based on named actions.
+// An action looks like `{type: "count", count: 23}'
 const reducer = (state, action) => {
+  // pull the three possible variables out of `action' to decrease
+  // verbosity in the rest of the function
   let { count, hPercent, vPercent } = action;
   switch (action.type) {
     case "count":
@@ -22,7 +28,13 @@ const reducer = (state, action) => {
 };
 
 const App = () => {
+  // Grab the app state and dispatcher from React.useReducer after we
+  // pass it our reducer function and the app's initial state (defined above).
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  // We'll pass these three functions to our slider controls. When the
+  // slider controls change their values, they'll call these functions,
+  // which will dispatch change requests to our reducer function.
   const handleCountChange = event => {
     dispatch({ type: "count", count: Number(event.target.value) });
   };
@@ -33,8 +45,17 @@ const App = () => {
     dispatch({ type: "vPercent", vPercent: Number(event.target.value) });
   };
 
+  // Pull the discrete variables from our state to decrease verbosity in
+  // the remainder of the App function.
   const { count, hPercent, vPercent } = state;
 
+  // An Effect is a side effect, or something that changes a value outside of
+  // the function or changes data in the function from the outside.
+  // Here, we're looking at the part of the url after the #, if there is one,
+  // and finding digits after "count=", "hPercent=" or "vPercent=", and
+  // using those values to change the corresponding state variables.
+  //
+  // This effect only runs once, when the app is first rendered.
   useEffect(() => {
     let match;
     const hash = window.location.hash;
@@ -46,10 +67,21 @@ const App = () => {
     if (match) dispatch({ type: "vPercent", vPercent: Number(match[1]) });
   }, []);
 
+  // In this Effect, we're setting the URL hash (the part after the #) with
+  // the values from the state variables.
+  //
+  // This effect is run anytime count, hPercent or vPercent change.
   useEffect(() => {
     window.location.hash = `#count=${count}&hPercent=${hPercent}&vPercent=${vPercent}`;
   }, [count, hPercent, vPercent]);
 
+  // Finally, we render the app. The first three elements are defined below.
+  // We're passing them their respective state variables and the handler
+  // function (defined above) to manipulate that variable.
+  //
+  // For each value of 0...count, we render a Square, setting a variable
+  // "angle" based on that value. We also pass it the hPercent and vPercent
+  // values.
   return (
     <div className="App">
       <CountControl {...{ count, handleCountChange }} />
@@ -68,9 +100,17 @@ const App = () => {
   );
 };
 
+// App gets exported, and rendered by index.js
 export default App;
 
 const Square = ({ angle, vPercent, hPercent }) => {
+  // Everything in HTML is rectangular, and this particular div's width and
+  // height are set in App.css so that it's a square. However, we're using
+  // CSS's clip-path property to "mask" the background, so to speak, using
+  // the hPercent and vPercent values.
+  //
+  // We rotate the trimmed square and set its background color from the value
+  // of "angle".
   return (
     <div
       className="Square"
@@ -83,6 +123,10 @@ const Square = ({ angle, vPercent, hPercent }) => {
     />
   );
 };
+
+// These are the slider controls. They recieve their values and change
+// handler functions and use them to set and change their respective
+// app state values.
 const CountControl = ({ count, handleCountChange }) => {
   return (
     <input
