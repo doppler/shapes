@@ -14,7 +14,7 @@ body {
 
 .Square {
   position: absolute;
-  width: 200pt;
-  height: 200pt;
+  width: 50vw;
+  height: 50vh;
   background-color: hsla(30, 100%, 50%, 0.5);
 }

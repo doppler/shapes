@@ -1,13 +1,58 @@
-import React, { useState } from "react";
+import React, { useReducer, useEffect } from "react";
 import "./App.css";
 
+const MAXCOUNT = 90;
+const initialState = {
+  count: 23,
+  hPercent: 100,
+  vPercent: 1
+};
+
+const reducer = (state, action) => {
+  let { count, hPercent, vPercent } = action;
+  switch (action.type) {
+    case "count":
+      return { ...state, count };
+    case "hPercent":
+      return { ...state, hPercent };
+    case "vPercent":
+      return { ...state, vPercent };
+    case "newState":
+      return action.newState;
+    default:
+      throw new Error();
+  }
+};
+
 const App = () => {
-  const [count, setCount] = useState(5);
-  const [hPercent, sethPercent] = useState(34);
-  const [vPercent, setvPercent] = useState(50);
-  const handleCountChange = event => setCount(Number(event.target.value));
-  const handleHchange = event => sethPercent(Number(event.target.value));
-  const handleVchange = event => setvPercent(Number(event.target.value));
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const handleCountChange = event => {
+    dispatch({ type: "count", count: Number(event.target.value) });
+  };
+  const handleHchange = event => {
+    dispatch({ type: "hPercent", hPercent: Number(event.target.value) });
+  };
+  const handleVchange = event => {
+    dispatch({ type: "vPercent", vPercent: Number(event.target.value) });
+  };
+
+  const { count, hPercent, vPercent } = state;
+
+  useEffect(() => {
+    let match;
+    const hash = window.location.hash;
+    match = hash.match(/count=(\d+)/);
+    if (match) dispatch({ type: "count", count: Number(match[1]) });
+    match = hash.match(/hPercent=(\d+)/);
+    if (match) dispatch({ type: "hPercent", hPercent: Number(match[1]) });
+    match = hash.match(/vPercent=(\d+)/);
+    if (match) dispatch({ type: "vPercent", vPercent: Number(match[1]) });
+  }, []);
+
+  useEffect(() => {
+    window.location.hash = `#count=${count}&hPercent=${hPercent}&vPercent=${vPercent}`;
+  }, [count, hPercent, vPercent]);
+
   return (
     <div className="App">
       <CountControl {...{ count, handleCountChange }} />
@@ -29,9 +74,6 @@ const App = () => {
 export default App;
 
 const Square = ({ angle, vPercent, hPercent }) => {
-  console.log(
-    `polygon(50% 0, ${hPercent}% ${vPercent}%, ${100 - hPercent}% ${vPercent}%)`
-  );
   return (
     <div
       className="Square"
@@ -50,7 +92,7 @@ const CountControl = ({ count, handleCountChange }) => {
       type="range"
       value={count}
       min={1}
-      max={90}
+      max={MAXCOUNT}
       step={1}
       onChange={handleCountChange}
     />
@@ -70,7 +112,7 @@ const Vcontrol = ({ vPercent, handleVchange }) => (
   <input
     type="range"
     value={vPercent}
-    min={0}
+    min={1}
     max={100}
     step={1}
     onChange={handleVchange}
