@@ -1,13 +1,13 @@
 {
   "main.css": "/shapes/static/css/main.9cd01ca0.chunk.css",
-  "main.js": "/shapes/static/js/main.f2836c37.chunk.js",
-  "main.js.map": "/shapes/static/js/main.f2836c37.chunk.js.map",
+  "main.js": "/shapes/static/js/main.d7b38334.chunk.js",
+  "main.js.map": "/shapes/static/js/main.d7b38334.chunk.js.map",
   "runtime~main.js": "/shapes/static/js/runtime~main.e570d835.js",
   "runtime~main.js.map": "/shapes/static/js/runtime~main.e570d835.js.map",
   "static/js/2.1cf9c136.chunk.js": "/shapes/static/js/2.1cf9c136.chunk.js",
   "static/js/2.1cf9c136.chunk.js.map": "/shapes/static/js/2.1cf9c136.chunk.js.map",
   "index.html": "/shapes/index.html",
-  "precache-manifest.a4c759ed4eb09951238e10891841a3c0.js": "/shapes/precache-manifest.a4c759ed4eb09951238e10891841a3c0.js",
+  "precache-manifest.fb1ec7d1daf5d050314a6b78d39ab2e2.js": "/shapes/precache-manifest.fb1ec7d1daf5d050314a6b78d39ab2e2.js",
   "service-worker.js": "/shapes/service-worker.js",
   "static/css/main.9cd01ca0.chunk.css.map": "/shapes/static/css/main.9cd01ca0.chunk.css.map"
 }
