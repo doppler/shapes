@@ -163,6 +163,7 @@ const Vcontrol = ({ vPercent, handleVchange }) => (
 const ViewSourceLink = () => (
   <a
     href="https://github.com/doppler/shapes/blob/master/src/App.js"
+    rel="noopener noreferrer"
     target="_blank"
   >
     View Source
