@@ -67,7 +67,7 @@ const App = () => {
     if (match) dispatch({ type: "vPercent", vPercent: Number(match[1]) });
     // get rid of stupid facebook tracking param -- thanks Karl Tiedt!
     window.location.search = "";
-  }, []);
+  });
 
   // In this Effect, we're setting the URL hash (the part after the #) with
   // the values from the state variables.
